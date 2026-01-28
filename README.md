@@ -1,0 +1,1 @@
+# comparativo-vendas-status
