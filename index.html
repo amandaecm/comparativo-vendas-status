@@ -213,8 +213,30 @@
             </div>
         `;
     });
+
+  function alternarFiltro(nome) {
+        if (ativos.includes(nome)) {
+            // Se tiver mais de um, remove. (Evita esconder todos)
+            if (ativos.length > 1) {
+                ativos = ativos.filter(a => a !== nome);
+            }
+        } else {
+            ativos.push(nome);
+        }
+        renderizar(); // Atualiza a tela
+    }
+
+    function getIcon(val) {
+        if(val === "check") return '<i class="fa-solid fa-circle-check text-green-500 text-base md:text-lg"></i>';
+        if(val === "dash") return '<span class="text-slate-300">—</span>';
+        return `<span class="bg-slate-50 px-2 py-1 rounded-full text-[9px] md:text-[10px] font-bold border border-slate-200 text-center">${val}</span>`;
+    }
+
+    // Inicia a página
+    renderizar();      
 </script>
 </body>
 
 </html>
+
 
