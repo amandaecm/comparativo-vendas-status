@@ -18,6 +18,30 @@
         .custom-scroll::-webkit-scrollbar { height: 10px; }
         .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+
+        /* Garante que a coluna lateral não "esmague" no celular */
+.sidebar-fixed {
+    width: 160px; /* Largura menor para telas pequenas */
+    flex-shrink: 0;
+    position: sticky;
+    left: 0;
+    z-index: 20;
+    background-color: white;
+}
+
+/* Define a largura dos cards para que não fiquem gigantes ou minúsculos */
+.card-responsive {
+    min-width: 280px; /* Largura ideal para a maioria dos celulares */
+    flex-shrink: 0;
+}
+
+/* Melhora a rolagem lateral no celular */
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory; /* Faz o card "travar" na tela ao deslizar */
+    -webkit-overflow-scrolling: touch;
+}
     </style>
 </head>
 <body class="bg-slate-100 p-4 md:p-8">
@@ -169,3 +193,4 @@
 </body>
 
 </html>
+
