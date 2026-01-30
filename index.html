@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparativo Grupo Status - Oficial</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,10 +18,40 @@
         .custom-scroll::-webkit-scrollbar { height: 10px; }
         .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+
+        /* Garante que a coluna lateral não "esmague" no celular */
+.sidebar-fixed {
+    width: 160px; /* Largura menor para telas pequenas */
+    flex-shrink: 0;
+    position: sticky;
+    left: 0;
+    z-index: 20;
+    background-color: white;
+}
+
+/* Define a largura dos cards para que não fiquem gigantes ou minúsculos */
+.card-responsive {
+    min-width: 280px; /* Largura ideal para a maioria dos celulares */
+    flex-shrink: 0;
+}
+
+/* Melhora a rolagem lateral no celular */
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory; /* Faz o card "travar" na tela ao deslizar */
+    -webkit-overflow-scrolling: touch;
+}
     </style>
 </head>
 <body class="bg-slate-100 p-4 md:p-8">
-
+    <div class="max-w-[1600px] mx-auto mb-6 p-4 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-wrap items-center gap-4">
+    <div class="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase tracking-wider mr-4">
+        <i class="fa-solid fa-filter"></i> Filtros de Exibição
+    </div>
+    <div id="filtros-container" class="flex flex-wrap gap-2">
+        </div>
+</div>
     <div class="max-w-[1500px] mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
         <div class="flex">
             
@@ -166,4 +197,8 @@
     });
 </script>
 </body>
+
 </html>
+
+
+
