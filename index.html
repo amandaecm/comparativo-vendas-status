@@ -2,104 +2,121 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Comparativo Grupo Status - Oficial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Alturas fixas para alinhamento entre sidebar e grid */
         .row-height { height: 55px; display: flex; align-items: center; border-bottom: 1px solid #f1f5f9; }
-        .sidebar-label { padding-left: 20px; font-size: 0.85rem; font-weight: 600; color: #475569; }
-        .data-cell { justify-content: center; border-left: 1px solid #e2e8f0; }
+        .sidebar-label { padding-left: 15px; font-size: 0.75rem; font-weight: 700; color: #475569; width: 100%; }
+        .data-cell { justify-content: center; border-left: 1px solid #e2e8f0; min-width: 280px; }
         .bg-zebra:nth-child(even) { background-color: #f8fafc; }
         
-        /* Customização da Barra de Rolagem */
-        .custom-scroll::-webkit-scrollbar { height: 10px; }
-        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar { height: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
 
-        /* Garante que a coluna lateral não "esmague" no celular */
-.sidebar-fixed {
-    width: 160px; /* Largura menor para telas pequenas */
-    flex-shrink: 0;
-    position: sticky;
-    left: 0;
-    z-index: 20;
-    background-color: white;
-}
+        /* AJUSTE: Coluna lateral fixa e largura controlada para evitar quebra de texto */
+        .sticky-column {
+            position: sticky;
+            left: 0;
+            z-index: 30;
+            background: white;
+            box-shadow: 4px 0 10px -2px rgba(0,0,0,0.1);
+            width: 160px; 
+            /* Largura fixa para segurar a palavra Especificações */
+            flex-shrink: 20;
+        }
 
-/* Define a largura dos cards para que não fiquem gigantes ou minúsculos */
-.card-responsive {
-    min-width: 280px; /* Largura ideal para a maioria dos celulares */
-    flex-shrink: 0;
-}
+        /* AJUSTE: Altura controlada da imagem para manter uniformidade */
+        .img-container {
+            width: 100%;
+            height: 120px; /* Altura fixa para todas as fotos */
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-/* Melhora a rolagem lateral no celular */
-.scroll-container {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory; /* Faz o card "travar" na tela ao deslizar */
-    -webkit-overflow-scrolling: touch;
-}
+        @media (max-width: 768px) {
+            .sticky-column { width: 140px; }
+            .data-cell { min-width: 250px; }
+            .header-height { height: 180px; }
+            .sidebar-label { font-size: 0.65rem; }
+        }
+
+        @media (min-width: 769px) {
+            .sticky-column { width: 220px; }
+            .header-height { height: 220px; }
+        }
     </style>
 </head>
-<body class="bg-slate-100 p-4 md:p-8">
+<body class="bg-slate-100 p-2 md:p-8">
+
     <div class="max-w-[1600px] mx-auto mb-6 p-4 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-wrap items-center gap-4">
-    <div class="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase tracking-wider mr-4">
-        <i class="fa-solid fa-filter"></i> Filtros de Exibição
-    </div>
-    <div id="filtros-container" class="flex flex-wrap gap-2">
+        <div class="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase tracking-wider mr-4">
+            <i class="fa-solid fa-filter"></i> Filtros de Exibição
         </div>
-</div>
+        <div id="filtros-container" class="flex flex-wrap gap-2"></div>
+    </div>
+    
     <div class="max-w-[1500px] mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
-        <div class="flex">
+        <div class="flex overflow-x-auto custom-scroll">
             
-            <div class="w-64 flex-none bg-white border-r border-gray-200 z-10 shadow-[5px_0_15px_-5px_rgba(0,0,0,0.05)]">
-                <div class="p-6 h-[240px] flex flex-col justify-end border-b border-gray-100">
-                    <span class="text-blue-600 font-bold text-[10px] uppercase tracking-widest">Categoria</span>
-                    <h1 class="text-3xl font-black text-slate-800">Especificações</h1>
+            <div class="sticky-column border-r border-gray-200">
+                <div class="p-4 md:p-6 header-height flex flex-col justify-end border-b border-gray-100">
+                    <span class="text-blue-600 font-bold text-[9px] uppercase tracking-widest">Categoria</span>
+                    <h1 class="text-xl md:text-3xl font-black text-slate-800 break-words leading-none">Descrição</h1>
                 </div>
                 
                 <div class="flex flex-col">
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-ruler-combined mr-3"></i> Tam. Inicial dos Lotes</div>
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-swimming-pool mr-3 text-slate-400"></i> Piscina Adulto/Infantil</div>
-                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-umbrella-beach mr-3 text-slate-400"></i> Piscina "Praia"</div>
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-table-tennis-paddle-ball mr-3 text-slate-400"></i> Beach Tennis / Vôlei</div>
-                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-dumbbell mr-3 text-slate-400"></i> Academia / Fitness</div>
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-soccer-ball mr-3 text-slate-400"></i> Campo de Futebol</div>
-                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-basketball mr-3 text-slate-400"></i> Quadra Poliesportiva</div>
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-laptop-code mr-3 text-slate-400"></i> Coworking / Home Office</div>
-                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-glass-cheers mr-3 text-slate-400"></i> Salão de Festas</div>
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-utensils mr-3 text-slate-400"></i> Espaço Gourmet</div>
-                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-store mr-3 text-slate-400"></i> Mini Mercado / Mall</div>
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-paw mr-3 text-slate-400"></i> Área Pet / Pet Care</div>
-                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-tshirt mr-3 text-slate-400"></i> Lavanderia Coletiva</div>
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-car-battery mr-3 text-slate-400"></i> Vagas p/ Carros Elétricos</div>
-                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-sun mr-3 text-slate-400"></i> Energia Solar</div>
-                    <div class="row-height sidebar-label"><i class="fa-solid fa-lock mr-3 text-slate-400"></i> Segurança</div>
-                    <div class="row-height sidebar-label font-bold text-blue-700"><i class="fa-solid fa-star mr-3 text-blue-500"></i> Diferencial Único</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-ruler-combined mr-2 w-4 text-slate-400"></i> Tamanho inicial Lotes</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-file-invoice-dollar mr-2 w-4 text-slate-400"></i> Planos de pagamento</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-chart-line mr-2 w-4 text-slate-400"></i> Correção e juros</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-hourglass-half mr-2 w-4 text-slate-400"></i> Tempo de Mercado Construtora</div>
+                    <div class="row-height sidebar-label"><i class="fas fa-hard-hat mr-2 w-4 text-slate-400"></i> Obras Entregues</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-calendar-check mr-2 w-4 text-slate-400"></i> Previsão de Entrega</div>
+                    <div class="row-height bg-slate-200/50 sidebar-label text-blue-800 uppercase text-[10px] tracking-widest"><i class="fa-solid fas fa-martini-glass-citrus mr-2"></i> Lazer e Bem-Estar</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-swimming-pool mr-2 w-4 text-slate-400"></i> Piscina</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-umbrella-beach mr-2 w-4 text-slate-400"></i> Praia</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-table-tennis-paddle-ball mr-2 w-4 text-slate-400"></i> Beach Tennis</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-dumbbell mr-2 w-4 text-slate-400"></i> Academia</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-soccer-ball mr-2 w-4 text-slate-400"></i> Campo</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-basketball mr-2 w-4 text-slate-400"></i> Quadra</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-laptop-code mr-2 w-4 text-slate-400"></i> Coworking</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-glass-cheers mr-2 w-4 text-slate-400"></i> Festas</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-utensils mr-2 w-4 text-slate-400"></i> Gourmet</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-store mr-2 w-4 text-slate-400"></i> Mercado</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-paw mr-2 w-4 text-slate-400"></i> Área Pet</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-tshirt mr-2 w-4 text-slate-400"></i> Lavanderia</div>
+                    <div class="row-height bg-slate-200/50 sidebar-label text-blue-800 uppercase text-[10px] tracking-widest"><i class="fa-solid fa-user-secret mr-2"></i> Infraestrutura e Segurança</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-car-battery mr-2 w-4 text-slate-400"></i> Carro Elétrico</div>
+                    <div class="row-height sidebar-label bg-zebra"><i class="fa-solid fa-sun mr-2 w-4 text-slate-400"></i> Energia Solar</div>
+                    <div class="row-height sidebar-label"><i class="fa-solid fa-lock mr-2 w-4 text-slate-400"></i> Segurança</div>
+                    <div class="row-height sidebar-label bg-zebra font-bold text-blue-700"><i class="fa-solid fa-star mr-2 w-4 text-blue-500"></i> Diferencial</div>
                 </div>
             </div>
 
-            <div id="grid-vendas" class="flex flex-1 overflow-x-auto custom-scroll">
-                </div>
+            <div id="grid-vendas" class="flex flex-1"></div>
         </div>
 
-        <div id="footer-nucleos" class="bg-[#0a192f] text-white p-10 flex overflow-x-auto gap-12 border-t-4 border-blue-600 custom-scroll">
-            <div class="flex-none w-48 self-center">
-                <h2 class="text-blue-500 font-black text-lg uppercase leading-none">Núcleos de Lazer</h2>
+        <div id="footer-nucleos" class="bg-[#0a192f] text-white p-6 md:p-10 flex overflow-x-auto gap-8 md:gap-12 border-t-4 border-blue-600 custom-scroll">
+            <div class="flex-none w-32 md:w-48 self-center">
+                <h2 class="text-blue-500 font-black text-sm md:text-lg uppercase leading-none">Núcleos de Lazer</h2>
             </div>
-            </div>
+        </div>
 
-        <div class="p-10 grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 border-t border-gray-200">
-            <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
-                <h4 class="text-blue-700 font-bold mb-3 flex items-center"><i class="fa-solid fa-circle-info mr-2"></i> Como comparar?</h4>
-                <p class="text-xs text-blue-600 leading-relaxed">Utilizamos os dados técnicos oficiais de cada empreendimento para mapear as funcionalidades. O ícone <span class="text-green-500 font-bold">●</span> indica presença garantida do item.</p>
+        <div class="p-10 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 bg-slate-50 border-t border-gray-200">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                <h4 class="text-blue-700 font-bold text-sm mb-2"><i class="fa-solid fa-circle-info mr-2"></i> Como comparar?</h4>
+                <p class="text-[10px] md:text-xs text-blue-600">Dados técnicos oficiais mapeados. O ícone <span class="text-green-500 font-bold">●</span> indica presença garantida.</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-                <h4 class="text-slate-800 font-bold mb-3 flex items-center"><i class="fa-solid fa-file-signature mr-2"></i> Observações Legais</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">As imagens são ilustrativas. Os itens de lazer estão sujeitos a alterações conforme o memorial descritivo final de cada construtora.</p>
+            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                <h4 class="text-slate-800 font-bold text-sm mb-2"><i class="fa-solid fa-file-signature mr-2"></i> Observações</h4>
+                <p class="text-[10px] md:text-xs text-slate-500">Imagens ilustrativas conforme memorial descritivo.</p>
             </div>
         </div>
     </div>
@@ -109,96 +126,127 @@
             {
                 nome: "Chácaras Florença",
                 construtora: "Grupo Status",
-                foto: "https://static.wixstatic.com/media/cf72c4_08d8a7a0646c4056b11cbc88e11f5194~mv2.png/v1/fill/w_1901,h_720,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/JF_GUARITA%20(1)%201.png", // Trocar pelas fotos oficiais
-                tamanho: "160m² a 200m²", piscina: "Raia 25m", praia: "dash", beach: "check", academia: "Indoor Equipada", futebol: "Campo Infantil", poli: "check", coworking: "check", festas: "check", gourmet: "Café Bistrô", mercado: "Easy Market 24h", pet: "check", lavanderia: "Easy Wash", eletrico: "check", solar: "check", seguranca: "Reconhecimento facial", diferencial: "Car Wash c/ Reuso + ETA/ETE",
-                nucleos: { aquat: "Piscina Adulto/Infantil • Deck Solarium", esp: "Academia • Quadra Poliesportiva", soc: "Salão de Festas • Salão de Jogos" }
+                foto: "https://static.wixstatic.com/media/cf72c4_08d8a7a0646c4056b11cbc88e11f5194~mv2.png/v1/fill/w_1901,h_720,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/JF_GUARITA%20(1)%201.png",
+                tamanho: "160m² a 200m²", pagamento: "24/36 desconto + sem correção<br>48/60 com desconto<br>financiamento até 120 meses", correcao: "INCC durante a obra e IPCA pós obra + juros 1% A.M", tempoMercado: "Desde 2002 - 24 anos", obras: "Chácaras Montenegro<br>Boulevard Shopping, Parque Shopping, Parque Office<br>Bougainville Belém", previsao: "Março/2027", piscina: "Raia 25m", praia: "dash", beach: "check", academia: "Indoor Equipada", futebol: "Quadra Infantil", poli: "check", coworking: "check", festas: "check", gourmet: "Café Bistrô", mercado: "Easy Market", pet: "Pet Place", lavanderia: "Easy Wash", eletrico: "check", solar: "check", seguranca: "Biometria Facial", diferencial: "Car Wash c/ Reuso + ETA/ETE",
+                nucleos: { aquat: "Piscina Adulto/Infantil", esp: "Academia • Quadra", soc: "Salão de Festas" }
             },
             {
                 nome: "Beach Life",
                 construtora: "Mirad Incorporadora",
                 foto: "https://s2-g1.glbimg.com/26IEGW4V1O_bWArKAitgrzAGcms=/0x0:3988x2046/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2023/r/C/IHj4tGR1Gv8HnFYhGKyQ/portico-beach-alta-copy.png",
-                tamanho: "160m² a 354m²", piscina: "check", praia: "Sim (>520m²)", beach: "5 Arenas", academia: "Fitness Club + Outdoor", futebol: "Society Sintético", poli: "check", coworking: "dash", festas: "c/ Porte-Cochère", gourmet: "Múltiplos + Food Truck", mercado: "Mini Market Interno", pet: "check", lavanderia: "dash", eletrico: "check", solar: "dash", seguranca: "check", diferencial: "Vida modo resort",
-                nucleos: { aquat: "Piscina Praia de Areia • Aqua Play", esp: "5 Quadras Beach Tennis • Campo Society", soc: "Beach Lounge • Game Lounge" }
+                tamanho: "160m² a 354m²",  pagamento: "36 meses sem correção, financiamento até 120 meses", correcao: "INCC durante a obra e IGPM pós obra + juros 1% A.M", tempoMercado: "Desde 2009 - 17 anos", obras: "dash", previsao: "Março/2027", piscina: "check", praia: "Sim (>520m²)", beach: "5 Arenas", academia: "Fitness Club + Outdoor", futebol: "Society Sintético", poli: "check", coworking: "dash", festas: "c/ Porte-Cochère", gourmet: "Múltiplos + Food Truck", mercado: "Mini Market Interno", pet: "check", lavanderia: "dash", eletrico: "check", solar: "dash", seguranca: "check", diferencial: "Vida modo Resort",
+                nucleos: { aquat: "Piscina Praia", esp: "5 Quadras", soc: "Beach Lounge" }
             },
             {
                 nome: "Smart Life",
                 construtora: "Mirad Incorporadora",
                 foto: "https://s2-g1.glbimg.com/YQ3xF4RvKvnQWy4ww2nxviIcbX4=/0x0:1300x731/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/n/b/0UaMBQS6C4OTQw4KXpDw/portico.jpg",
-                tamanho: "160m² e 296m²", piscina: "Raia 20m", praia: "Sim", beach: "Arena de Areia", academia: "Club House Fitness", futebol: "Campinho", poli: "Tênis + Campo", coworking: "check", festas: "Lounge 60 pessoas", gourmet: "Gourmet c/ Adega", mercado: "Smart Market", pet: "Pet Care Completo", lavanderia: "Automatizada", eletrico: "check", solar: "check", seguranca: "Vigilância por drones", diferencial: "Arena Digital Imersiva",
-                nucleos: { aquat: "Piscina c/ Raia • Prainha", esp: "Quadras • Beach Tennis", soc: "Arena Digital • Espaço Mulher" }
+                tamanho: "160m² e 296m²", pagamento: "Financiamento até 156 meses", correcao: "INCC durante a obra e IGPM pós obra + juros 14% A.A", tempoMercado: "Desde 2009 - 17 anos", obras: "dash", previsao: "Março/2028", piscina: "Raia 20m", praia: "Sim", beach: "Arena de Areia", academia: "Club House Fitness", futebol: "Campinho", poli: "Tênis + Campo", coworking: "check", festas: "Lounge 60 pessoas", gourmet: "Gourmet c/ Adega", mercado: "Smart Market", pet: "Pet Care Completo", lavanderia: "Automatizada", eletrico: "check", solar: "check", seguranca: "Vigilância por Drones", diferencial: "Arena Gamer Imersiva",
+                nucleos: { aquat: "Piscina Raia", esp: "Quadras", soc: "Arena Digital" }
             },
             {
                 nome: "Reserva Bitencourt",
-                construtora: "Bitencourt Construção e Incorporação",
+                construtora: "Bitencourt",
                 foto: "https://www.roneimoveis.com.br/admin/imovel/20251016T1229430300-436897549.jpg",
-                tamanho: "160m²", piscina: "check", praia: "Lago Nat. + Deck", beach: "check", academia: "Fitness Center", futebol: "Society", poli: "Tênis Oficial", coworking: "check", festas: "Salão Imponente", gourmet: "Gourmet + Lago", mercado: "Mall Bitencourt", pet: "Pet Care", lavanderia: "check", eletrico: "dash", solar: "dash", seguranca: "Foco em muros elevados", diferencial: "Cinema Próprio",
-                nucleos: { aquat: "Lago Natural • Trilhas", esp: "Tênis Oficial • Ciclofaixa", soc: "Cinema • Arena Game" }
+                tamanho: "160m²", pagamento: "36 meses sem correção, financiamento até 180 meses", correcao: "INCC durante a obra e IPCA pós obra + juros 1% A.M", tempoMercado: "Desde 1999 - 27 anos", obras: "9 empreendimentos verticais em Recife", previsao: "2027/2028", piscina: "check", praia: "Lago Nativo + Deck", beach: "check", academia: "Fitness Center", futebol: "Society", poli: "Tênis Oficial", coworking: "check", festas: "Salão Imponente", gourmet: "Gourmet+Lago", mercado: "Mall Bitencourt", pet: "Pet Care", lavanderia: "check", eletrico: "dash", solar: "dash", seguranca: "Foco em Muros elevados", diferencial: "Cinema Próprio",
+                nucleos: { aquat: "Lago Natural", esp: "Tênis Oficial", soc: "Cinema" }
             },
             {
                 nome: "City Garden",
                 construtora: "Campos de Sá",
                 foto: "https://imgs1.cdn-imobibrasil.com.br/imagens/imoveis/202601151801027420.png",
-                tamanho: "168m²", piscina: "Hidro + Parque", praia: "dash", beach: "check", academia: "check", futebol: "check", poli: "check", coworking: "dash", festas: "check", gourmet: "8 Quiosques", mercado: "Mercadinho", pet: "check", lavanderia: "dash", eletrico: "dash", solar: "check", seguranca: "Ronda motorizada", diferencial: "Sauna + Espaço Zen",
-                nucleos: { aquat: "Parque Aquático • Hidro", esp: "Beach Tennis • Academia", soc: "8 Quiosques Gourmet" }
+                tamanho: "168m²", pagamento: "Planos 24 meses sem correção + 76 meses com correção", correcao: "INCC durante a obra e IPCA pós obra + juros 1% A.M", tempoMercado: "Desde 2018 - 8 anos", obras: "Flores do Campo Residencial", previsao: "Março/2028", piscina: "Hidro + Parque", praia: "dash", beach: "check", academia: "check", futebol: "check", poli: "check", coworking: "dash", festas: "check", gourmet: "8 Quiosques", mercado: "Mercadinho", pet: "check", lavanderia: "dash", eletrico: "dash", solar: "check", seguranca: "Ronda Motorizada", diferencial: "Espaço zen c/ Sauna",
+                nucleos: { aquat: "Parque Aquático", esp: "Beach Tennis", soc: "8 Quiosques" }
             }
         ];
 
+        let ativos = empreendimentos.map(e => e.nome);
+
         function getIcon(val) {
-        if(val === "check") return '<i class="fa-solid fa-circle-check text-green-500 text-lg"></i>';
-        if(val === "dash") return '<span class="text-slate-300">—</span>';
-        return `<span class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold border border-slate-200">${val}</span>`;
-    }
+            if(val === "check") return '<i class="fa-solid fa-circle-check text-green-500 text-lg"></i>';
+            if(val === "dash") return '<span class="text-slate-300">—</span>';
+            return `<span class="bg-slate-50 px-2 py-1 rounded-full text-[9px] font-bold border border-slate-200 text-center">${val}</span>`;
+        }
 
-    const grid = document.getElementById('grid-vendas');
-    const footer = document.getElementById('footer-nucleos');
+        function alternarFiltro(nome) {
+            if (ativos.includes(nome)) {
+                if (ativos.length > 1) ativos = ativos.filter(a => a !== nome);
+            } else {
+                ativos.push(nome);
+            }
+            renderizar();
+        }
 
-    empreendimentos.forEach(emp => {
-        // MONTAGEM DO GRID PRINCIPAL (FOTO + CONSTRUTORA + DADOS)
-        grid.innerHTML += `
-            <div class="flex-none w-[300px] border-l border-slate-100">
-                <div class="p-6 h-[240px] flex flex-col justify-between border-b border-gray-100">
-                    <img src="${emp.foto}" class="w-full h-36 object-cover rounded-xl shadow-md border border-slate-200">
-                    <div>
-                        <p class="text-[9px] font-black text-blue-600 uppercase tracking-tighter mb-1">${emp.construtora}</p>
-                        <h3 class="text-xl font-bold text-slate-800 leading-tight">${emp.nome}</h3>
-                    </div>
-                </div>
-                <div class="row-height data-cell">${getIcon(emp.tamanho)}</div>
-                <div class="row-height data-cell">${getIcon(emp.piscina)}</div>
-                <div class="row-height data-cell bg-zebra">${getIcon(emp.praia)}</div>
-                <div class="row-height data-cell">${getIcon(emp.beach)}</div>
-                <div class="row-height data-cell bg-zebra">${getIcon(emp.academia)}</div>
-                <div class="row-height data-cell">${getIcon(emp.futebol)}</div>
-                <div class="row-height data-cell bg-zebra">${getIcon(emp.poli)}</div>
-                <div class="row-height data-cell">${getIcon(emp.coworking)}</div>
-                <div class="row-height data-cell bg-zebra">${getIcon(emp.festas)}</div>
-                <div class="row-height data-cell">${getIcon(emp.gourmet)}</div>
-                <div class="row-height data-cell bg-zebra">${getIcon(emp.mercado)}</div>
-                <div class="row-height data-cell">${getIcon(emp.pet)}</div>
-                <div class="row-height data-cell bg-zebra">${getIcon(emp.lavanderia)}</div>
-                <div class="row-height data-cell">${getIcon(emp.eletrico)}</div>
-                <div class="row-height data-cell bg-zebra">${getIcon(emp.solar)}</div>
-                <div class="row-height data-cell">${getIcon(emp.seguranca)}</div>
-                <div class="row-height data-cell font-bold text-blue-600">${getIcon(emp.diferencial)}</div>
-            </div>
-        `;
+        function renderizar() {
+            const grid = document.getElementById('grid-vendas');
+            const footer = document.getElementById('footer-nucleos');
+            const filtros = document.getElementById('filtros-container');
+            
+            grid.innerHTML = '';
+            footer.innerHTML = '<div class="flex-none w-32 md:w-48 self-center"><h2 class="text-blue-500 font-black text-sm md:text-lg uppercase leading-none">Núcleos de Lazer</h2></div>';
+            filtros.innerHTML = '';
 
-        // MONTAGEM DO RODAPÉ (NÚCLEOS DE LAZER)
-        footer.innerHTML += `
-            <div class="flex-none w-64">
-                <h4 class="text-blue-400 font-bold text-[11px] uppercase mb-4 tracking-wider">${emp.nome}</h4>
-                <div class="space-y-4 text-[10px] leading-relaxed text-slate-400">
-                    <div><b class="text-slate-200 block uppercase mb-1">Aquático</b> ${emp.nucleos.aquat}</div>
-                    <div><b class="text-slate-200 block uppercase mb-1">Esportes</b> ${emp.nucleos.esp}</div>
-                    <div><b class="text-slate-200 block uppercase mb-1">Social</b> ${emp.nucleos.soc}</div>
-                </div>
-            </div>
-        `;
-    });
-</script>
+            empreendimentos.forEach(emp => {
+                const estaAtivo = ativos.includes(emp.nome);
+                filtros.innerHTML += `
+                    <button onclick="alternarFiltro('${emp.nome}')" 
+                        class="px-3 py-1.5 rounded-full text-[10px] md:text-xs font-bold transition-all border
+                        ${estaAtivo ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-400 border-slate-200'}">
+                        ${emp.nome}
+                    </button>`;
+            });
+
+            empreendimentos.filter(e => ativos.includes(e.nome)).forEach(emp => {
+                grid.innerHTML += `
+                    <div class="flex-none card-responsive border-l border-slate-100">
+                        <div class="p-4 md:p-6 header-height flex flex-col justify-between border-b border-gray-100">
+                            <div class="img-container">
+                                <img src="${emp.foto}">
+                            </div>
+                            <div class="mt-2">
+                                <p class="text-[8px] md:text-[9px] font-black text-blue-600 uppercase tracking-tighter mb-1">${emp.construtora}</p>
+                                <h3 class="text-sm md:text-xl font-bold text-slate-800 leading-tight">${emp.nome}</h3>
+                            </div>
+                        </div>
+                        <div class="row-height data-cell">${getIcon(emp.tamanho)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.pagamento)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.correcao)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.tempoMercado)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.obras)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.previsao)}</div>
+                        <div class="row-height bg-slate-200/50 border-l border-slate-300"></div>
+                        <div class="row-height data-cell">${getIcon(emp.piscina)}</div>
+                        <div class="row-height data-cell bg-zebra">${getIcon(emp.praia)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.beach)}</div>
+                        <div class="row-height data-cell bg-zebra">${getIcon(emp.academia)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.futebol)}</div>
+                        <div class="row-height data-cell bg-zebra">${getIcon(emp.poli)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.coworking)}</div>
+                        <div class="row-height data-cell bg-zebra">${getIcon(emp.festas)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.gourmet)}</div>
+                        <div class="row-height data-cell bg-zebra">${getIcon(emp.mercado)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.pet)}</div>
+                        <div class="row-height data-cell bg-zebra">${getIcon(emp.lavanderia)}</div>
+                        <div class="row-height bg-slate-200/50 border-l border-slate-300"></div>
+                        <div class="row-height data-cell">${getIcon(emp.eletrico)}</div>
+                        <div class="row-height data-cell bg-zebra">${getIcon(emp.solar)}</div>
+                        <div class="row-height data-cell">${getIcon(emp.seguranca)}</div>
+                        <div class="row-height data-cell font-bold text-blue-600 text-[10px] md:text-xs px-2 italic text-center">${getIcon(emp.diferencial)}</div>
+                    </div>`;
+
+                footer.innerHTML += `
+                    <div class="flex-none w-48 md:w-64">
+                        <h4 class="text-blue-400 font-bold text-[10px] uppercase mb-4 tracking-wider">${emp.nome}</h4>
+                        <div class="space-y-2 text-[9px] md:text-[10px] leading-relaxed text-slate-400">
+                            <div><b class="text-slate-200 block uppercase mb-0.5">Aquático</b> ${emp.nucleos.aquat}</div>
+                            <div><b class="text-slate-200 block uppercase mb-0.5">Esportes</b> ${emp.nucleos.esp}</div>
+                            <div><b class="text-slate-200 block uppercase mb-0.5">Social</b> ${emp.nucleos.soc}</div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        renderizar();
+    </script>
 </body>
-
 </html>
-
-
-
